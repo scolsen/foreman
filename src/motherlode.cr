@@ -2,5 +2,15 @@
 module Motherlode
   VERSION = "0.1.0"
 
-  # TODO: Put your code here
+  class Command
+    def initialize(@reciever : T, @name : String) forall T
+
+    end
+
+    def self.execute 
+
+    end
+    def undo
+    def name
+  end
 end
