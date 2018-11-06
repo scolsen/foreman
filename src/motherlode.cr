@@ -23,11 +23,12 @@ module Motherlode
   end
 
   abstract class Executor(T)
+    getter reciever
     def initialize(@reciever : T)
     end
-   
-    def self.==(other) 
-      return @reciever == other.reciever 
+    
+    def ==(other : self) 
+      self.class == other.class
     end
 
     abstract def execute
