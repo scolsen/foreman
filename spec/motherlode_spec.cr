@@ -3,7 +3,11 @@ require "./spec_helper"
 describe Motherlode do
   # TODO: Write tests
 
-  it "works" do
-    false.should eq(true)
+  describe "NilExecutor" do
+    it "Returns nil." do
+      eg = Motherlode::NilExecutor.new
+      eg.execute.should be_nil
+    end
   end
+
 end
