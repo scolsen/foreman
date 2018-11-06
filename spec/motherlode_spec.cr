@@ -17,4 +17,14 @@ describe Motherlode do
     end
   end
 
+  describe "Lode" do
+    lode = Motherlode::Lode.new("lode", Motherlode::NilExecutor.new)
+    
+    it "Initializes." do
+      lode.should be_a(Motherlode::Lode)
+    end
+
+
+  end
+
 end

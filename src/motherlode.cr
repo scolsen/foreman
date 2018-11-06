@@ -14,11 +14,12 @@ module Motherlode
   end
   
   class Lode
-    def initialize(@command : String, executor : Executor(T)) forall T
+    getter command, executor
+    def initialize(@command : String, @executor : Executor(T)) forall T
     end
 
-    def ==(other)
-      return @command == other.command && @executor == other.executor
+    def ==(other : self)
+      command == other.command && executor == other.executor
     end
   end
 
