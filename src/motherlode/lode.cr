@@ -1,13 +1,16 @@
 module Motherlode
   class Lode
-    @_chips = Set(Chip.class).new 
-    
+    @chips = Set(Chip.class).new 
+    @data = false 
+
     property chips 
-    getter command, executor
-    def initialize(@command : Symbol, @chips : Array(Chip))
-      chips.each do |chip|
+    getter command
+    def initialize(@command : Symbol, @chips : Array(Chip.class))
+      _chips = Set(Chip.class).new
+      @chips.each do |chip|
         _chips.add(chip)
       end
+      @chips = _chips
     end
   
     def ==(other : self)
@@ -15,10 +18,10 @@ module Motherlode
     end
 
     def mine(chipclass : Chip.class)
-      _chips.each do |chip|
+      @chips.each do |chip|
         return unless chip.class == chipclass 
-        if !data.nil?
-          chip._execute(data)
+        if !@data
+          chip._execute(@data)
         else 
           chip._execute
         end
