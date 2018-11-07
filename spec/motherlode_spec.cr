@@ -18,10 +18,10 @@ describe Motherlode do
   end
 
   describe "Lode" do
-    lode = Motherlode::Lode.new("lode", Motherlode::NilExecutor.new)
-    lode_two = Motherlode::Lode.new("lode", Motherlode::NilExecutor.new)
-    lode_three = Motherlode::Lode.new("lode", Motherlode::FalseExecutor.new)
-    lode_four = Motherlode::Lode.new("doop", Motherlode::FalseExecutor.new) 
+    lode = Motherlode::Lode.new(:lode, Motherlode::NilExecutor.new)
+    lode_two = Motherlode::Lode.new(:lode, Motherlode::NilExecutor.new)
+    lode_three = Motherlode::Lode.new(:lode, Motherlode::FalseExecutor.new)
+    lode_four = Motherlode::Lode.new(:doop, Motherlode::FalseExecutor.new) 
 
     it "Initializes." do
       lode.should be_a(Motherlode::Lode)

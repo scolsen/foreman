@@ -1,7 +1,7 @@
 module Motherlode
   class Lode
       getter command, executor
-      def initialize(@command : String, @executor : Executor)
+      def initialize(@command : Symbol, @executor : Executor)
       end
   
       def ==(other : self)
