@@ -6,7 +6,7 @@ describe Motherlode do
   describe "NilExecutor" do
     it "Returns nil." do
       eg = Motherlode::NilExecutor.new
-      eg.execute.should be_nil
+      eg.execute(NamedTuple.new).should be_nil
     end
 
     it "Instances are equal." do

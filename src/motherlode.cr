@@ -12,15 +12,18 @@ module Motherlode
   end
 
   class NilExecutor < Executor
-    def execute
-      return nil
+    def execute(tup)
+      nil
     end
   end
 
-  class FalseExecutor < Executor
-    def execute
+  class FalseExecutor < ComposableExecutor
+    def execute(tup)
       false
     end
-  end
 
+    def compose(executor) 
+      executor.execute && false
+    end
+  end
 end

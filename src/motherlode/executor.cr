@@ -4,6 +4,10 @@ module Motherlode
         self.class == other.class
       end
   
-      abstract def execute
+      abstract def execute(payload : NamedTuple(key: String, val: Object))
+  end
+
+  abstract class ComposableExecutor < Executor
+    abstract def compose(executor : Executor) 
   end
 end
