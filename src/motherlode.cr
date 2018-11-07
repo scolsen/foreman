@@ -11,19 +11,39 @@ module Motherlode
     @@lodes << lode
   end
 
-  class NilExecutor < Executor
-    def execute(tup)
+  class NilChip < Chip
+    def self.execute
+      nil 
+    end
+
+    def self.execute(data) 
+      nil 
+    end
+    
+    def self.compose(chip, data)
+      nil
+    end
+
+    def self.fail
       nil
     end
   end
 
-  class FalseExecutor < ComposableExecutor
-    def execute(tup)
+  class FalseChip < Chip
+    def self.execute
       false
     end
 
-    def compose(executor) 
-      executor.execute && false
+    def self.execute(data)
+      false
+    end
+
+    def self.compose(chip, data)
+      false
+    end
+
+    def self.fail
+      false
     end
   end
 end
