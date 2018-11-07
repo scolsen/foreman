@@ -32,9 +32,9 @@ describe Motherlode do
       t.should be_true
     end
     
-    it "Should not be equal to another lode with a different executor." do
+    it "Should be equal to another lode with a different executor." do
       t = lode == lode_three
-      t.should be_false
+      t.should be_true
     end
     
     it "Should not be equal to another lode with a different command." do

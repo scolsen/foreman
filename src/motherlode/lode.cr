@@ -5,7 +5,7 @@ module Motherlode
       end
   
       def ==(other : self)
-        command == other.command && executor == other.executor
+        command == other.command
       end
   end
 end
