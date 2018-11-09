@@ -20,10 +20,6 @@ module Motherlode
       nil 
     end
     
-    def self.compose(chip, data)
-      nil
-    end
-
     def self.fail
       nil
     end
@@ -34,11 +30,7 @@ module Motherlode
       false
     end
 
-    def self.execute(data)
-      false
-    end
-
-    def self.compose(chip, data)
+    def self.execute(data) 
       false
     end
 

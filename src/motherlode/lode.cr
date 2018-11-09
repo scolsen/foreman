@@ -1,7 +1,6 @@
 module Motherlode
   class Lode
     @chips = Set(Chip.class).new 
-    @data = false 
 
     property chips 
     getter command
@@ -20,11 +19,14 @@ module Motherlode
     def mine(chipclass : Chip.class)
       @chips.each do |chip|
         return unless chip.class == chipclass 
-        if !@data
-          chip._execute(@data)
-        else 
-          chip._execute
-        end
+        chip._execute
+      end
+    end
+    
+    def mine(chipclass : Chip.class, data : Object)
+      @chips.each do |chip|
+        return unless chip.class == chipclass 
+        chip._execute(data)
       end
     end
   end

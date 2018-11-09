@@ -10,11 +10,19 @@ describe Motherlode do
     end
 
     it "Can execute with no arguments." do
-      Motherlode::NilChip._execute.should be_nil
+      ex = Motherlode::NilChip._execute
+      ex.should be_a(Motherlode::Payload)
+      ex.data.should be_nil
+      ex.type.should eq(Nil)
+      ex.chip.should eq(Motherlode::NilChip)
     end
 
     it "Can execute with arguments." do
-      Motherlode::NilChip._execute("a").should be_nil
+      ex = Motherlode::NilChip._execute(Motherlode::Payload.new(nil, Motherlode::NilChip))
+      ex.should be_a(Motherlode::Payload)
+      ex.data.should be_nil
+      ex.type.should eq(Nil)
+      ex.chip.should eq(Motherlode::NilChip)
     end
   end
   
