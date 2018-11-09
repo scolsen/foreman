@@ -12,6 +12,7 @@ module Motherlode
   end
 
   class NilChip < Chip
+    
     def self.execute
       nil 
     end
@@ -26,6 +27,7 @@ module Motherlode
   end
 
   class FalseChip < Chip
+    
     def self.execute
       false
     end

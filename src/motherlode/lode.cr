@@ -16,18 +16,12 @@ module Motherlode
       command == other.command
     end
 
-    def mine(chipclass : Chip.class)
-      @chips.each do |chip|
-        return unless chip.class == chipclass 
-        chip._execute
+    def mine(chipset : Array(Chip.class))
+      targets = chipset.select { |x| @chips.includes? x }
+      targets.each do | target |
+        target._execute
       end
     end
-    
-    def mine(chipclass : Chip.class, data : Object)
-      @chips.each do |chip|
-        return unless chip.class == chipclass 
-        chip._execute(data)
-      end
-    end
+
   end
 end

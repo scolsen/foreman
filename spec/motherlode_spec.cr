@@ -34,7 +34,7 @@ describe Motherlode do
     end
 
     it "Should execute a given chip." do
-      lode.mine(Motherlode::NilChip).should be_nil
+      lode.mine([Motherlode::NilChip, Motherlode::FalseChip]).should be_nil
     end
   end
 end

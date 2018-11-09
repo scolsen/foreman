@@ -3,18 +3,18 @@ module Motherlode
     abstract def execute : Object
     abstract def execute(data : Payload) : Object 
     abstract def fail
+  end    
+
+  def compose(chip : Chip.class)
+    ->chip._execute
+  end
+
+  def compose(f : Proc(Payload), chip : Chip.class)
+    ->chip._execute
   end
 
   abstract class Chip
     extend ChipInterface
-
-    def compose(chip : Chip.class) : Payload
-      _execute(chip._execute) 
-    end
-   
-    def compose(chip : Chip.class, data : Payload) : Payload
-      _execute(chip._execute(data))
-    end
 
     def self.==(other : self)
       self.class == other.class
