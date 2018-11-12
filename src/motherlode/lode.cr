@@ -9,7 +9,7 @@ module Motherlode
 
     property chips 
     getter command
-    def initialize(@command : Symbol, @chips : Array(Chip.class))
+    def initialize(@chips : Array(Chip.class))
     end
   
     def ==(other : self)

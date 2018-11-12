@@ -11,11 +11,21 @@ module Motherlode
     @@foremen << foreman
   end
 
-  def parse
+  def select_foreman
     argv = ARGV
     @@foremen.each do | foreman |
-      foreman.run argv[1..-1] if argv[0] == foreman.command
+      if argv[0] == foreman.command
+        foreman.context == argv[1..-1]
+        return foreman
+      end
     end
+  end
+
+  def parse
+    select_foreman
+      .select_lode
+      .prepare
+      .run
   end
 
   class NilChip < Chip

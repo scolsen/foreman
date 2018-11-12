@@ -1,11 +1,17 @@
 module Motherlode
   abstract class ForemanChip < Chip
-  end
-
-  class Foreman
-    getter command
-    @lodes = {} of Symbol => Lode
+  end 
+  
+  abstract class Foreman
+    getter command : String, 
+           context : Array(String),
+           selected : Lode | Nil
     
+    @lodes = {} of String => Lode 
+    @context = [] of String
+    @options = [] of Option
+    @selected = nil
+
     def ==(other : self)
       @command == other.command
     end
@@ -33,12 +39,17 @@ module Motherlode
       @lodes[command].compose to_payload(data)
       yield @lodes[command].computed
     end
-    
-    def run(Array(String))
-
+   
+    def select_lode 
+      @lodes.each do | k, v|
+        @selected = v if k == @context[0]
+      end
     end
 
-    def initialize(@command : String, @lodes : Hash(Symbol, Lode))
+    def run(args : Array(String))
+    end
+
+    def initialize(@command : String, @lodes : Hash(String, Lode))
     end
   end
 end
