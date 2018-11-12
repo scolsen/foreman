@@ -1,11 +1,11 @@
 module Motherlode
   class Lode
-    getter results  : Array(Payload),
-           computed : Payload | Nil
+    getter results  : Array(Payload)
+    property computed : Payload
     
     @chips = [] of Chip.class
     @results = [] of Payload 
-    @computed = nil
+    @computed = Payload.new(nil, NilChip)
 
     property chips 
     getter command
@@ -16,7 +16,7 @@ module Motherlode
       command == other.command
     end
 
-    def mine()
+    def mine
       @chips.each do | chip |
         @results << chip._execute
       end

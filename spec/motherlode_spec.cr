@@ -38,5 +38,19 @@ describe Motherlode do
       puts lode.results
       lode.results.should be_a(Array(Motherlode::Payload))
     end
+
+    it "Should compose executions." do
+      lode.compose
+      puts lode.computed
+      lode.computed.should be_a(Motherlode::Payload)
+    end
+  end
+
+  describe "Foreman" do
+    lode = Motherlode::Lode.new(:mylode, [Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
+    f = Motherlode::Foreman.new(:test, {:dog => lode})
+    it "Should convert simples to payloads." do
+      f.to_payload(nil).should be_a(Motherlode::Payload) 
+    end
   end
 end

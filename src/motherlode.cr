@@ -5,10 +5,17 @@ module Motherlode
   VERSION = "0.1.0"
   extend self
 
-  @@lodes = Set(Lode).new
+  @@foremen = Set(Foreman).new
   
-  def register(lode : Lode) 
-    @@lodes << lode
+  def register(foreman : Foreman) 
+    @@foremen << foreman
+  end
+
+  def parse
+    argv = ARGV
+    @@foremen.each do | foreman |
+      foreman.run argv[1..-1] if argv[0] == foreman.command
+    end
   end
 
   class NilChip < Chip
