@@ -1,27 +1,49 @@
 module Motherlode
   class Lode
-    @chips = Set(Chip.class).new 
+    getter results  : Array(Payload),
+           computed : Payload | Nil
+    
+    @chips = [] of Chip.class
+    @results = [] of Payload 
+    @computed = nil
 
     property chips 
     getter command
     def initialize(@command : Symbol, @chips : Array(Chip.class))
-      _chips = Set(Chip.class).new
-      @chips.each do |chip|
-        _chips.add(chip)
-      end
-      @chips = _chips
     end
   
     def ==(other : self)
       command == other.command
     end
 
-    def mine(chipset : Array(Chip.class))
-      targets = chipset.select { |x| @chips.includes? x }
-      targets.each do | target |
-        target._execute
+    def mine()
+      @chips.each do | chip |
+        @results << chip._execute
       end
     end
 
+    def mine(data : Payload)
+      @chips.each do | chip |
+        @results << chip._execute(data)
+      end
+    end
+
+    def compose
+      @computed = @chips[0]._execute
+      rest = @chips[1..-1]
+      
+      rest.each do | chip |
+        @computed = chip._execute @computed 
+      end
+    end
+
+    def compose(data : Payload)
+      @computed = @chips[0]._execute data
+      rest = @chips[1..-1]
+      
+      rest.each do | chip |
+        @computed = chip._execute @computed 
+      end
+    end
   end
 end

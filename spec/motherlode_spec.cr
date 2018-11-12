@@ -30,11 +30,13 @@ describe Motherlode do
     lode = Motherlode::Lode.new(:mylode, [Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
     it "Should initialize with a set of chips." do
       puts lode.chips
-      lode.chips.should be_a(Set(Motherlode::Chip.class)) 
+      lode.chips.should be_a(Array(Motherlode::Chip.class)) 
     end
 
-    it "Should execute a given chip." do
-      lode.mine([Motherlode::NilChip, Motherlode::FalseChip]).should be_nil
+    it "Should execute all chips." do
+      lode.mine()
+      puts lode.results
+      lode.results.should be_a(Array(Motherlode::Payload))
     end
   end
 end
