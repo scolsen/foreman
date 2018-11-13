@@ -27,30 +27,26 @@ describe Motherlode do
   end
   
   describe "Lode" do
-    lode = Motherlode::Lode.new(:mylode, [Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
+    lode = Motherlode::Lode.new([Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
     it "Should initialize with a set of chips." do
       puts lode.chips
       lode.chips.should be_a(Array(Motherlode::Chip.class)) 
     end
 
     it "Should execute all chips." do
-      lode.mine()
-      puts lode.results
-      lode.results.should be_a(Array(Motherlode::Payload))
-    end
-
-    it "Should compose executions." do
-      lode.compose
-      puts lode.computed
-      lode.computed.should be_a(Motherlode::Payload)
+      lode.compute.should be_a(Motherlode::Payload)
     end
   end
 
-  describe "Foreman" do
-    lode = Motherlode::Lode.new(:mylode, [Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
-    f = Motherlode::Foreman.new(:test, {:dog => lode})
-    it "Should convert simples to payloads." do
-      f.to_payload(nil).should be_a(Motherlode::Payload) 
+  describe "Miner" do
+    lode = Motherlode::Lode.new([Motherlode::NilChip, Motherlode::FalseChip, Motherlode::NilChip])
+    min = Motherlode::Miner.new("test")
+    
+    it "Should add a load associated with an option." do
+      min.add("-n", "--nil", "Returns nil", lode) 
+      min.mine(["-n", "", ""])
+      min.results.should be_a(Array(Motherlode::Payload))
+      puts min.results
     end
   end
 end
