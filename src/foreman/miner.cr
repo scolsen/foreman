@@ -5,8 +5,14 @@ module Foreman
     getter parser : OptionParser
     getter command : String
     getter results : Array(Payload)
+    getter help : String | Nil
 
     def initialize(@command : String)
+      @parser = OptionParser.new
+      @results = [] of Payload
+    end
+
+    def initialize(@command : String, @help : String)
       @parser = OptionParser.new
       @results = [] of Payload
     end

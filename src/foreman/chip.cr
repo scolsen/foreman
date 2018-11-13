@@ -5,14 +5,6 @@ module Foreman
     abstract def fail
   end    
 
-  def compose(chip : Chip.class)
-    ->chip._execute
-  end
-
-  def compose(f : Proc(Payload), chip : Chip.class)
-    ->chip._execute
-  end
-
   abstract class Chip
     extend ChipInterface
 
@@ -31,6 +23,68 @@ module Foreman
     def self._execute(data : Payload) : Payload
       begin 
         Payload.new(execute(data), self)
+      rescue
+        Payload.new(fail, self)
+      end
+    end
+  end
+
+  abstract class UnwrapperChip
+    extend ChipInterface
+
+    def self._execute(reciever : Simple) : Payload
+      begin 
+        reciever = Payload.new(execute, self).data
+      rescue
+        reciever = Payload.new(fail, self).data
+      end
+    end
+
+    def self._execute(data : Payload, reciever : Simple) : Payload
+      begin 
+        reciever = Payload.new(execute(data), self).data
+      rescue
+        reciever = Payload.new(fail, self).data
+      end
+    end
+  end
+  
+  abstract class IOChip
+    extend ChipInterface
+    
+    def self._execute : Payload
+      begin 
+        execute
+        Payload.new(nil, self)
+      rescue
+        Payload.new(fail, self)
+      end
+    end
+
+    def self._execute(data : Payload) : Payload
+      begin 
+        execute(data)
+        Payload.new(nil, self)
+      rescue
+        Payload.new(fail, self)
+      end
+    end
+  end
+
+  abstract class ConditionalChip
+    extend ChipInterface
+
+    def self._execute : Payload
+      begin 
+        Payload.new(execute, self)
+      rescue
+        Payload.new(fail, self)
+      end
+    end
+
+    def self._execute(data : Payload) : Payload
+      begin 
+        Payload.new(execute(data), self) if has_chip? data
       rescue
         Payload.new(fail, self)
       end

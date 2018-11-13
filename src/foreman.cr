@@ -14,8 +14,10 @@ module Foreman
       args = ARGV
       cmd = args.first?
       @@miners.each do |command, miner|
+        args.shift
+        help(args.shift) if cmd == "help"
         if command == cmd
-          miner.mine(args[1..-1])
+          miner.mine(args)
         end
       end
     end
@@ -23,10 +25,20 @@ module Foreman
     def parse(args : Array(String))
       cmd = args.first?
       @@miners.each do |command, miner|
+        args.shift
+        help(args.shift) if cmd == "help"
         if command == cmd
-          miner.mine(args[1..-1])
+          miner.mine(args)
         end
       end
+    end
+
+    def help(comm : String) 
+      puts comm
+      @@miners.each do |command, miner|
+        puts miner.parser if comm == command
+      end
+      exit 0
     end
 
   class NilChip < Chip

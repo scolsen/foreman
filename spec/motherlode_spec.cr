@@ -60,5 +60,10 @@ describe Foreman do
       Foreman.parse(["test", "-n", "fool"])
       min.results.should be_a(Array(Foreman::Payload))
     end
+
+    it "Should print help." do
+      Foreman.register(min)
+      Foreman.parse(["help", "test"])
+    end
   end
 end
