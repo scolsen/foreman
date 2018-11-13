@@ -1,4 +1,4 @@
-module Motherlode
+module Foreman
   class Lode
     @chips = [] of Chip.class
 

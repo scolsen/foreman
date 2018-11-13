@@ -1,4 +1,4 @@
-module Motherlode
+module Foreman
   module ChipInterface
     abstract def execute : Object
     abstract def execute(data : Payload) : Object 

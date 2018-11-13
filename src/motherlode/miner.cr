@@ -1,6 +1,6 @@
 require "option_parser"
 
-module Motherlode
+module Foreman
   class Miner
     getter parser : OptionParser
     getter command : String
