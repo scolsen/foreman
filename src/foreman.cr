@@ -1,5 +1,5 @@
 # TODO: Write documentation for `Motherlode` module Motherlode
-require "./motherlode/**"
+require "./foreman/**"
 
 module Foreman 
   VERSION = "0.1.0"
