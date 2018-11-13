@@ -29,12 +29,14 @@ module Foreman
     end
   end
 
-  abstract class UnwrapperChip
-    extend ChipInterface
+abstract class OptionChip 
+  extend ChipInterface 
 
-    def self._execute(reciever : Simple) : Payload
+  def self._execute(reciever : Simple) : Payload
       begin 
-        reciever = Payload.new(execute, self).data
+        p = Payload.new(execute, self)
+        reciever = p.data
+        p  
       rescue
         reciever = Payload.new(fail, self).data
       end
@@ -42,13 +44,15 @@ module Foreman
 
     def self._execute(data : Payload, reciever : Simple) : Payload
       begin 
-        reciever = Payload.new(execute(data), self).data
+        p = Payload.new(execute, self)
+        reciever = p.data
+        p
       rescue
         reciever = Payload.new(fail, self).data
       end
     end
-  end
-  
+end
+
   abstract class IOChip
     extend ChipInterface
     

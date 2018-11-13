@@ -1,7 +1,7 @@
-require "./motherlode/*"
+require "./foreman/*"
 
-module Motherlode::Util
-  class InspectorChip < Motherlode::Chip
+module Foreman::Util
+  class InspectorChip < Foreman::Chip
     def execute
       "No payload inspected." 
     end

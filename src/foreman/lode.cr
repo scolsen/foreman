@@ -21,7 +21,7 @@ module Foreman
       computed
     end
 
-    def compute_with(data : String) : Payload
+    def compute_with(data : String | Array(String)) : Payload
       computed = @chips[0]._execute Payload.new(data)
       rest = @chips[1..-1]
       
