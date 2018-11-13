@@ -1,10 +1,25 @@
 # TODO: Write documentation for `Motherlode` module Motherlode
 require "./foreman/**"
+require "yaml"
 
 module Foreman 
   VERSION = "0.1.0"
   extend self
+    PROGRAM_NAME = "foreman"
     @@miners = {} of String => Miner 
+    @@config = {} of String => String 
+    @@has_config = false
+
+    def config 
+      @@config
+    end
+
+    def default_config(configuration_options : Array(NamedTuple(option: String, default: String)))
+      @@has_config = true
+      configuration_options.each do | option |
+        @@config[option[:option]] = option[:default]
+      end
+    end
 
     def register(miner : Miner)
       @@miners[miner.command] = miner 
@@ -40,32 +55,4 @@ module Foreman
       end
       exit 0
     end
-
-  class NilChip < Chip
-    def self.execute
-      nil 
-    end
-
-    def self.execute(data) 
-      nil 
-    end
-    
-    def self.fail
-      nil
-    end
-  end
-
-  class FalseChip < Chip
-    def self.execute
-      false
-    end
-
-    def self.execute(data) 
-      false
-    end
-
-    def self.fail
-      false
-    end
-  end
 end
