@@ -4,21 +4,21 @@ require "yaml"
 
 module Foreman 
   VERSION = "0.1.0"
-  extend self
-    PROGRAM_NAME = "foreman"
-    @@miners = {} of String => Miner 
-    @@config = {} of String => String 
-    @@has_config = false
+  extend self 
 
-    def config 
-      @@config
-    end
-
+  private module ForemanConfig
     def default_config(configuration_options : Array(NamedTuple(option: String, default: String)))
-      @@has_config = true
+      @has_config = true
       configuration_options.each do | option |
-        @@config[option[:option]] = option[:default]
+        @config[option[:option]] = option[:default]
       end
+    end
+  end
+
+    @@miners = {} of String => Miner 
+    
+    def _execute(code : Int32)
+      exit(code)
     end
 
     def register(miner : Miner)
@@ -27,25 +27,31 @@ module Foreman
 
     def parse
       args = ARGV
-      cmd = args.first?
+      return if args.first?.nil?
+      cmd = args.shift
+      exe = uninitialized Miner
       @@miners.each do |command, miner|
-        args.shift
-        help(args.shift) if cmd == "help"
+        help(args[0]) if cmd == "help"
         if command == cmd
-          miner.mine(args)
+          exe = miner
+          break
         end
       end
+      _execute(exe.mine(args))
     end
  
     def parse(args : Array(String))
-      cmd = args.first?
+      return if args.first?.nil?
+      cmd = args.shift
+      exe = uninitialized Miner
       @@miners.each do |command, miner|
-        args.shift
-        help(args.shift) if cmd == "help"
+        help(args[0]) if cmd == "help"
         if command == cmd
-          miner.mine(args)
+          exe = miner 
+          break
         end
       end
+      _execute(exe.mine(args))
     end
 
     def help(comm : String) 

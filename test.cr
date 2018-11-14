@@ -5,7 +5,7 @@ class MyMiner < Foreman::Miner
     puts "Hello world."
     puts get_option("nil")
     puts @options
-    puts Foreman.config
+    return 0
   end
 end
 
@@ -15,8 +15,5 @@ min.option("n", "nil", "Returns nil.")
 config = [{option: "test", default: "foo"},
           {option: "other", default: "bar"}]
 
-Foreman.default_config(config)
 Foreman.register(min)
 Foreman.parse
-
-puts Dir.current
